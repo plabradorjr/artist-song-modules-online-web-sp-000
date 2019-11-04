@@ -11,7 +11,6 @@ class Song
   extend Findable::ClassMethods
   include Paramable::InstanceMethods
 
-
   @@songs = []
 
   def initialize
