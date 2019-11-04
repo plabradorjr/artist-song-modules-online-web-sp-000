@@ -1,42 +1,39 @@
 require 'pry'
-require_relative 'artist'
-require_relative 'concerns/memorable'
-require_relative 'concerns/findable'
 
-
-class Song
+class Artist
   attr_accessor :name
-  attr_reader :artist
+  attr_reader :songs
 
-  extend Memorable::ClassMethods
-  include Memorable::InstanceMethods
-  extend Findable::ClassMethods
+  @@artists = []
 
-  @@songs = []
-
-  # def initialize
-  #   @@songs << self
-  # end
-  #
-  # def self.find_by_name(name)
-  #   @@songs.detect{|a| a.name == name}
-  # end
-  #
-  def self.all
-    @@songs
+  def initialize
+    @@artists << self
+    @songs = []
   end
-  #
-  # def self.reset_all
-  #   self.all.clear
-  # end
-  #
-  # def self.count
-  #   self.all.count
-  # end
 
-  def artist=(artist)
-     @artist = artist
-     artist.add_song(self) unless artist.songs.include?(self)
+  def self.find_by_name(name)
+    @@artists.detect{|a| a.name == name}
+  end
+
+  def self.all
+    @@artists
+  end
+
+  def self.reset_all
+    self.all.clear
+  end
+
+  def self.count
+    self.all.count
+  end
+
+  def add_song(song)
+    @songs << song
+    song.artist = self
+  end
+
+  def add_songs(songs)
+    songs.each { |song| add_song(song) }
   end
 
   def to_param
