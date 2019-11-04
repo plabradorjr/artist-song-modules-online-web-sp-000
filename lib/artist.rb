@@ -1,5 +1,5 @@
 require 'pry'
-require_relative 'lib/concerns/Memorable'
+require_relative '../lib/concerns/Memorable'
 
 class Artist
   attr_accessor :name
